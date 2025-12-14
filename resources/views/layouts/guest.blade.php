@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
     <meta charset="UTF-8">
     <title>Portal Lowongan Magang</title>
 
@@ -12,7 +16,8 @@
         }
 
         header {
-            background: #1e3a8a; /* biru tua */
+            background: #1e3a8a;
+            /* biru tua */
             color: white;
             padding: 16px 30px;
         }
@@ -48,20 +53,29 @@
         }
     </style>
 </head>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+@stack('scripts')
+
 <body>
 
-<header>
-    <h1>Portal Lowongan Magang</h1>
-</header>
+    <header>
+        <h1>Portal Lowongan Magang</h1>
+    </header>
 
-<nav>
-    <a href="{{ url('/lowongan') }}">Lowongan</a>
-    <a href="{{ url('/') }}" style="color:#dc2626;">Logout</a>
-</nav>
+    <nav>
+        <a href="{{ url('/lowongan') }}">Lowongan</a>
+        <a href="{{ url('/') }}" style="color:#dc2626;">Logout</a>
+    </nav>
 
-<div class="container">
-    @yield('content')
-</div>
+    <div class="container">
+        @yield('content')
+    </div>
 
 </body>
+
 </html>

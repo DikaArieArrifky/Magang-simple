@@ -2,61 +2,61 @@
 
 @section('content')
 
-<h2 style="margin-bottom:20px;">Lowongan Magang</h2>
+<h2 style="margin-bottom:15px;">Lowongan Magang</h2>
 
-@if(session('success'))
-    <div style="
-        background:#dcfce7;
-        color:#166534;
-        padding:10px 15px;
-        border-radius:6px;
-        margin-bottom:20px;
-        border:1px solid #000;
-    ">
-        {{ session('success') }}
-    </div>
-@endif
-
-<table width="100%" cellpadding="10" cellspacing="0"
-       style="border-collapse:collapse; background:#ffffff; border:1px solid #000;">
+<table id="lowonganTable" width="100%" cellpadding="10" cellspacing="0"
+       style="border-collapse:collapse;">
     <thead>
-        <tr style="background:#1e3a8a; color:white;">
-            <th style="border:1px solid #000;">Judul</th>
-            <th style="border:1px solid #000;">Perusahaan</th>
-            <th style="border:1px solid #000;">Lokasi</th>
-            <th style="border:1px solid #000;">Deskripsi</th>
-            <th style="border:1px solid #000;">Aksi</th>
+        <tr style="background:#d1d1d1;">
+            <th>Judul</th>
+            <th>Perusahaan</th>
+            <th>Lokasi</th>
+            <th>Deskripsi</th>
+            <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
-        @forelse($lowongans as $l)
+        @foreach($lowongans as $l)
         <tr>
-            <td style="border:1px solid #000;"><b>{{ $l->judul }}</b></td>
-            <td style="border:1px solid #000;">{{ $l->perusahaan }}</td>
-            <td style="border:1px solid #000;">{{ $l->lokasi }}</td>
-            <td style="border:1px solid #000;">{{ $l->deskripsi }}</td>
-            <td style="border:1px solid #000;">
+            <td><b>{{ $l->judul }}</b></td>
+            <td>{{ $l->perusahaan }}</td>
+            <td>{{ $l->lokasi }}</td>
+            <td>{{ $l->deskripsi }}</td>
+            <td>
                 <a href="/daftar/{{ $l->id }}"
                    style="
-                        background:#1e3a8a;
-                        color:white;
+                        display:inline-block;
                         padding:6px 12px;
-                        border-radius:6px;
+                        background:#2563eb;
+                        color:white;
                         text-decoration:none;
+                        border-radius:4px;
+                        font-size:14px;
                    ">
                     Daftar
                 </a>
             </td>
         </tr>
-        @empty
-        <tr>
-            <td colspan="5" align="center"
-                style="border:1px solid #000; color:#6b7280;">
-                Belum ada lowongan tersedia.
-            </td>
-        </tr>
-        @endforelse
+        @endforeach
     </tbody>
 </table>
 
 @endsection
+
+@push('scripts')
+<script>
+$(function () {
+    $('#lowonganTable').DataTable({
+        pageLength: 5,
+        lengthChange: false,
+        language: {
+            search: "Cari:",
+            paginate: {
+                next: "Next",
+                previous: "Prev"
+            }
+        }
+    });
+});
+</script>
+@endpush
