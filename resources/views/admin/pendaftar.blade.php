@@ -2,6 +2,29 @@
 
 @section('content')
 <h2>Data Pendaftar</h2>
+<a href="{{ url('/admin/pendaftar/export') }}"
+   style="
+        display:inline-block;
+        margin-bottom:15px;
+        padding:8px 14px;
+        background:#16a34a;
+        color:white;
+        text-decoration:none;
+        border-radius:4px;
+   ">
+    Export Excel
+</a>
+<a href="{{ url('/admin/pendaftar/export-pdf') }}" style="
+        display:inline-block;
+        margin-bottom:15px;
+        padding:8px 14px;
+        background:#cc0029;
+        color:white;
+        text-decoration:none;
+        border-radius:4px;
+   ">
+    Export PDF  
+</a>
 
 <table width="100%" cellpadding="10" cellspacing="0" border="1">
     <thead style="background:#f3f4f6;">

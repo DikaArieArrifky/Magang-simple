@@ -40,6 +40,8 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/pendaftar', [AdminController::class, 'pendaftar']);
     Route::get('/pendaftar/{id}/approve', [AdminController::class, 'approve']);
     Route::get('/pendaftar/{id}/reject', [AdminController::class, 'reject']);
+    Route::get('/pendaftar/export', [AdminController::class, 'exportPendaftar']);
+    Route::get('/pendaftar/export-pdf', [AdminController::class, 'exportPendaftarPdf']);
 
     Route::get('/logout', [AdminController::class, 'logout']);
 });

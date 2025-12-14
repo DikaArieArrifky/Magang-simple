@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Admin;
 use App\Models\Lowongan;
 use App\Models\Pendaftar;
@@ -142,9 +142,59 @@ class AdminController extends Controller
             ->with('success', 'Lowongan berhasil diperbarui');
     }
 
+
+
+public function exportPendaftar()
+{
+    $pendaftars = Pendaftar::with('lowongan')->get();
+
+    $filename = "data_pendaftar_" . date('Ymd_His') . ".csv";
+
+    $headers = [
+        "Content-Type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=$filename",
+    ];
+
+    $callback = function () use ($pendaftars) {
+        $file = fopen('php://output', 'w');
+
+        // Header kolom
+        fputcsv($file, ['Nama', 'Email', 'Lowongan', 'Status']);
+
+        // Data
+        foreach ($pendaftars as $p) {
+            fputcsv($file, [
+                $p->nama,
+                $p->email,
+                $p->lowongan->judul ?? '-',
+                $p->status,
+            ]);
+        }
+
+        fclose($file);
+    };
+
+    return response()->stream($callback, 200, $headers);
+}
+
     public function deleteLowongan($id)
     {
         Lowongan::findOrFail($id)->delete();
         return back();
     }
+
+    // ======================PDF Export Pendaftar=======
+    // composer require barryvdh/laravel-dompdf
+    public function exportPendaftarPdf()
+{
+    $pendaftars = Pendaftar::with('lowongan')->get();
+
+    $pdf = Pdf::loadView('pdf.pendaftar', compact('pendaftars'))
+              ->setPaper('a4', 'portrait');
+
+    return $pdf->download(
+        'data_pendaftar_' . date('Ymd_His') . '.pdf'
+    );
+}
+
 }
